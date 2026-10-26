@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  roadzone:
+    build: .
+    container_name: roadzone-ai
+    ports:
+      - "8000:8000"   # FastAPI Backend & Swagger Docs
+      - "8501:8501"   # Streamlit Visual Dashboard Hub
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - GEMMA_MODEL=${GEMMA_MODEL:-gemma-4-26b-a4b-it}
+    volumes:
+      - ./roadzone.db:/app/roadzone.db
+    restart: unless-stopped
